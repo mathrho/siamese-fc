@@ -62,7 +62,9 @@ function build_dataset(data_file,v_1,v_end, root_original, root_crops)
 
             %xmin, ymins, ws, hs
             gt_box = round(sc * extent);
-                fprintf(rfp, '%d,%d,%d,%d,%d,%d,%d,%d,%s\n', track_id, obj_class, frame_sz(1), frame_sz(2), extent(1), extent(2), extent(3), extent(4), im_file);
+            im_patch_w = round(sc * frame_sz(1))
+            im_patch_h = round(sc * frame_sz(2))
+            fprintf(rfp, '%d,%d,%d,%d,%d,%d,%d,%d,%s\n', track_id, obj_class, im_patch_w, im_patch_h, gt_box(1), gt_box(2), gt_box(3), gt_box(4), im_file);
             line = fgetl(gfp);
         end
         fclose(rfp);
