@@ -1,5 +1,5 @@
 % -------------------------------------------------------------------------------------------------------------------
-function save_crops(data_file,v_1,v_end, root_original, root_crops)
+function build_dataset(data_file,v_1,v_end, root_original, root_crops)
     % Extract and save crops from video v_1 (start from 1) to v_end (check num video in imdb)
 	% e.g. save_crops(imdb_video, 1, 1000, '/path/to/original/ILSVRC15/', '/path/to/new/curated/ILSVRC15/')
 % -------------------------------------------------------------------------------------------------------------------
