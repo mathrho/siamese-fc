@@ -50,7 +50,7 @@ function build_dataset(data_file,v_1,v_end, root_original, root_crops)
         end
 
         gfp = fopen([rootDataDir_src vid_path '.txt'], 'r')
-        rfp = fopen([rootDataDir_dest vid_path '/groundtruth_rect_all.txt'])
+        rfp = fopen([rootDataDir_dest vid_path '/groundtruth_rect_all.txt'], 'w')
         line = fgetl(gfp);
         while ischar(line)
             V = strsplit(line,',');
