@@ -58,7 +58,8 @@ function build_dataset(data_file,v_1,v_end, root_original, root_crops)
             obj_class = int32(str2double(V{2}));
             frame_sz = int32([str2double(V{3}) str2double(V{4})]);
             extent = int32([str2double(V{5}) str2double(V{6}) str2double(V{7}) str2double(V{8})]);
-            im_name = strrep(strsplit(V{9}, '/')(end), '.JPEG', '.jpg');
+            im_path = strsplit(V{9}, '/');
+            im_name = strrep(im_path{end}, '.JPEG', '.jpg');
 
             %xmin, ymins, ws, hs
             gt_box = round(sc * extent);
