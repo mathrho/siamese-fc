@@ -17,7 +17,7 @@ function build_dataset(data_file,v_1,v_end, root_original, root_crops)
     video_classes = video_info{4};
 
     saved_crops = 0;
-    wfp = fopen('warnings.txt', 'w')
+    wfp = fopen('warnings.txt', 'w');
     for v=v_1:v_end
 
         vid_path = video_paths{v};
@@ -28,11 +28,15 @@ function build_dataset(data_file,v_1,v_end, root_original, root_crops)
             mkdir([rootDataDir_dest vid_path '/img'])
         end
 
-        im_scs = zeros(1, vid_nframes)
+        im_scs = zeros(1, vid_nframes);
         for ti=0:(vid_nframes-1)
            
             fprintf('%d (%d)/(%d)\n', v, ti+1, vid_nframes);
-            im = imread(sprintf('%s/%06d.jpg', [rootDataDir_src vid_path], ti));
+            try
+                im = imread(sprintf('%s/%06d.JPEG', [rootDataDir_src vid_path], ti));
+            catch me
+                im = imread(sprintf('%s/%06d.jpg', [rootDataDir_src vid_path], ti));
+            end
 
             [im_patch, im_sc] = rzmax_im(im, 480);
             imwrite(im_patch, sprintf('%s/img/%06d.jpg', [rootDataDir_dest vid_path], ti), 'Quality', 90);
