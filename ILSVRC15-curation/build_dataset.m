@@ -21,11 +21,13 @@ function build_dataset(data_file,v_1,v_end, root_original, root_crops)
     for v=v_1:v_end
 
         vid_path = video_paths{v};
+        str_vid_path = strsplit(video_paths{v}, '/');
+        vid_ppath = str_vid_path{end};
         vid_nframes = video_nframes(v);
 
-        if ~exist([rootDataDir_dest vid_path], 'dir')
-            mkdir([rootDataDir_dest vid_path])
-            mkdir([rootDataDir_dest vid_path '/img'])
+        if ~exist([rootDataDir_dest vid_ppath], 'dir')
+            mkdir([rootDataDir_dest vid_ppath])
+            mkdir([rootDataDir_dest vid_ppath '/img'])
         end
 
         im_scs = zeros(1, vid_nframes);
@@ -39,7 +41,7 @@ function build_dataset(data_file,v_1,v_end, root_original, root_crops)
             end
 
             [im_patch, im_sc] = rzmax_im(im, 480);
-            imwrite(im_patch, sprintf('%s/img/%06d.jpg', [rootDataDir_dest vid_path], ti), 'Quality', 90);
+            imwrite(im_patch, sprintf('%s/img/%06d.jpg', [rootDataDir_dest vid_ppath], ti), 'Quality', 90);
 
             im_scs(1, ti+1) = im_sc;
         end
@@ -50,7 +52,7 @@ function build_dataset(data_file,v_1,v_end, root_original, root_crops)
         end
 
         gfp = fopen([rootDataDir_src vid_path '.txt'], 'r')
-        rfp = fopen([rootDataDir_dest vid_path '/groundtruth_rect_all.txt'], 'w')
+        rfp = fopen([rootDataDir_dest vid_ppath '/groundtruth_rect_all.txt'], 'w')
         line = fgetl(gfp);
         while ischar(line)
             V = strsplit(line,',');
@@ -65,7 +67,7 @@ function build_dataset(data_file,v_1,v_end, root_original, root_crops)
             gt_box = round(sc * extent);
             im_patch_w = round(sc * frame_sz(1));
             im_patch_h = round(sc * frame_sz(2));
-            im_file = sprintf('%s/img/%s', [rootDataDir_dest vid_path], im_name);
+            im_file = sprintf('%s/img/%s', [rootDataDir_dest vid_ppath], im_name);
             fprintf(rfp, '%d,%d,%d,%d,%d,%d,%d,%d,%s\n', track_id, obj_class, im_patch_w, im_patch_h, gt_box(1), gt_box(2), gt_box(3), gt_box(4), im_file);
             line = fgetl(gfp);
         end
