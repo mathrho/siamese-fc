@@ -51,8 +51,8 @@ function build_dataset(data_file,v_1,v_end, root_original, root_crops)
             sc = max(sc);
         end
 
-        gfp = fopen([rootDataDir_src vid_path '.txt'], 'r')
-        rfp = fopen([rootDataDir_dest vid_ppath '/groundtruth_rect_all.txt'], 'w')
+        gfp = fopen([rootDataDir_src vid_path '.txt'], 'r');
+        rfp = fopen([rootDataDir_dest vid_ppath '/groundtruth_rect_all.txt'], 'w');
         line = fgetl(gfp);
         while ischar(line)
             V = strsplit(line,',');
