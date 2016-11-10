@@ -54,10 +54,10 @@ function build_dataset(data_file,v_1,v_end, root_original, root_crops)
         line = fgetl(gfp);
         while ischar(line)
             V = strsplit(line,',');
-            track_id = int(str2double(V{1}));
-            obj_class = int(str2double(V{2}));
-            frame_sz = int([str2double(V{3}) str2double(V{4})]);
-            extent = int([str2double(V{5}) str2double(V{6}) str2double(V{7}) str2double(V{8})]);
+            track_id = int32(str2double(V{1}));
+            obj_class = int32(str2double(V{2}));
+            frame_sz = int32([str2double(V{3}) str2double(V{4})]);
+            extent = int32([str2double(V{5}) str2double(V{6}) str2double(V{7}) str2double(V{8})]);
             im_file = V{9};
 
             %xmin, ymins, ws, hs
